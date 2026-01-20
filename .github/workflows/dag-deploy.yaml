@@ -1,0 +1,19 @@
+name: DAG Deploy
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/dag-deploy.yaml
+      - dags/**
+  workflow_dispatch:
+
+concurrency: ${{ github.ref }}-${{ github.workflow }}
+
+jobs:
+  upload:
+    uses: vuanembi/vuanem-airflow/.github/workflows/dag-deploy.yaml@master
+    secrets: inherit
+    with:
+      path: ingestion--shopee-orders-vuanem
