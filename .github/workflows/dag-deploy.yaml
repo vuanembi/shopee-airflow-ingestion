@@ -1,19 +1,31 @@
-name: DAG Deploy
+name: DAG Deploy (Shopee - Standalone)
 
 on:
   push:
     branches:
       - master
     paths:
-      - .github/workflows/dag-deploy.yaml
       - dags/**
+      - .github/workflows/dag-deploy.yaml
   workflow_dispatch:
 
 concurrency: ${{ github.ref }}-${{ github.workflow }}
 
 jobs:
   upload:
-    uses: vuanembi/vuanem-airflow/.github/workflows/dag-deploy.yaml@master
-    secrets: inherit
-    with:
-      path: ingestion--shopee-orders-vuanem
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Sync DAGs to Composer bucket
+        run: |
+          gcloud storage rsync -r \
+            ./dags/ingestion--shopee-orders-vuanem \
+            gs://vnbi-composer-1/dags/ingestion--shopee-orders-vuanem
