@@ -476,7 +476,7 @@ def process_to_dataframe(orders, order_details, income_details, san_label):
             
             row = {
                 "ma_don_hang": order_sn,
-                "ngay_dat_hang": datetime.fromtimestamp(details.get("create_time", 0)) if details.get("create_time") else None,
+                "ngay_dat_hang": pd.Timestamp(details.get("create_time", 0), unit='s', tz='UTC') if details.get("create_time") else None,  # ← SỬA DÒNG NÀY
                 "trang_thai_don_hang": details.get("order_status"),
                 "ly_do_huy": details.get("cancel_reason") or details.get("buyer_cancel_reason"),
                 "ma_van_don": tracking_no,
@@ -729,5 +729,6 @@ with DAG(
         dag=dag
 
     )
+
 
 
