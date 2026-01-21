@@ -3,7 +3,7 @@ name: DAG Deploy (Shopee - Standalone)
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - dags/**
       - .github/workflows/dag-deploy.yaml
