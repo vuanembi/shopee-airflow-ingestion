@@ -3,7 +3,7 @@ name: DAG Deploy (Shopee - Standalone)
 on:
   push:
     branches:
-      - main  # ← ĐỔI TỪ master SANG main
+      - main
     paths:
       - dags/**
       - .github/workflows/dag-deploy.yaml
@@ -24,10 +24,8 @@ jobs:
       
       - uses: google-github-actions/setup-gcloud@v2
       
-      - name: Sync DAGs to Composer bucket
+      - name: Upload DAG to Composer bucket
         run: |
-          gcloud storage rsync -r \
-            ./dags/ \
-            gs://vnbi-composer-1/dags/ \
-            --exclude=".*" \
-            --delete-unmatched-destination-objects
+          gcloud storage cp -r \
+            ./dags/ingestion--shopee-orders-vuanem/ \
+            gs://vnbi-composer-1/dags/
