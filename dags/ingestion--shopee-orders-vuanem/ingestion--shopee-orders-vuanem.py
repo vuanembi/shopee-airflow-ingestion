@@ -11,7 +11,6 @@ import concurrent.futures
 from google.cloud import bigquery, storage
 from google.oauth2 import service_account
 import logging
-import os
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
@@ -19,7 +18,7 @@ logger = logging.getLogger('shopee_api')
 
 # ==================== CẤU HÌNH ====================
 PARTNER_ID = 2010730
-PARTNER_KEY = os.environ["SHOPEE_PARTNER_KEY"]
+PARTNER_KEY = "484b68514a6e6a59584a72587a557546647762635277594b4f7a634e4e594654"
 HOST = "https://partner.shopeemobile.com/"
 
 # GCS Configuration
@@ -730,3 +729,4 @@ with DAG(
         dag=dag
 
     )
+
