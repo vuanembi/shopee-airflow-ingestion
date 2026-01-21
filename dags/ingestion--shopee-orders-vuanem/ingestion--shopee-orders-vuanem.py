@@ -718,7 +718,7 @@ with DAG(
     'ingestion--shopee-orders-vuanem',
     default_args=default_args,
     description='Shopee Orders Ingestion - 2 accounts (SP1 + SP2) - Incremental Update every 2 hours',
-    schedule_interval='0 */2 * * *',  # Every 2 hours
+    schedule_interval='0 */8 * * *',  # Every 2 hours
     start_date=datetime(2025, 1, 20),
     catchup=False
 ) as dag:
@@ -729,4 +729,5 @@ with DAG(
         dag=dag
 
     )
+
 
