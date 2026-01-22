@@ -480,6 +480,7 @@ def process_to_dataframe(orders, order_details, income_details, san_label):
                 "trang_thai_don_hang": details.get("order_status"),
                 "ly_do_huy": details.get("cancel_reason") or details.get("buyer_cancel_reason"),
                 "ma_van_don": tracking_no,
+                "tinh_thanh_pho": details.get("recipient_address", {}).get("city") if details.get("recipient_address") else None,
                 "sku_san_pham": item.get("model_sku"),
                 "ten_san_pham": item.get("item_name"),
                 "ten_phan_loai_hang": item.get("model_name"),
@@ -729,6 +730,7 @@ with DAG(
         dag=dag
 
     )
+
 
 
 
